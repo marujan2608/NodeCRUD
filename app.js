@@ -1,10 +1,13 @@
 
+const router = require('./route');
+
 module.exports = function(app){
 
     // All defined endpoints
-    app.use('/sam', (req, res) => {
-        res.status(200).send("Hello");
-    })
+    router(app);
+    // app.use('/sam', (req, res) => {
+    //     res.status(200).json({message : 'Hello'});
+    // })
 
     // All undefined endpoints
     app.use((req, res) => {
