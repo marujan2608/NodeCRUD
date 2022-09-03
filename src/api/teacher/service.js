@@ -12,8 +12,6 @@ exports.getAllTeachers = async (req, res) => {
 exports.getTeacherById = async (req) => {
     const id = req.params.id;
     const teacher = await data.teacherById(id);
-    console.log(teacher);
-    console.log(id);
     if(!teacher){
         throw new Error("Invalid Id");
     }
@@ -47,7 +45,7 @@ exports.createTeacher = async (req, res) => {
 }
 
 exports.createTeachers = async (req) => {
-    const teacherArray= req.body.teachers;
+    const teacherArray= req.body.teacher;
     if(!teacherArray){
         throw new Error("Invalid Body");
     }
@@ -58,8 +56,7 @@ exports.createTeachers = async (req) => {
                 name: teacherArray[i].name,
                 age: teacherArray[i].age
             })
-        }
-        
+        }        
     }
     return data.createTeachers(postTeachers);
 }
@@ -78,11 +75,10 @@ exports.updateTeacher = async (req) => {
 }
 
 exports.deleteTeacher = async (req, res) => {
-    const teacherId = req.params.id;
-    try{
-        const deleteTeacher =  await data.deleteTeacher(teacherId);
-        return deleteTeacher;
-    }catch(err){
-        throw new Error(err);
+    const id = req.params.id;
+    if(!id){
+        throw new Error("Invalid Body");
     }
+    const deleteTeacher =  await data.deleteTeacher(id);
+    return deleteTeacher;
 }

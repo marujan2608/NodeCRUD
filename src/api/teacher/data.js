@@ -55,18 +55,12 @@ exports.updateTeacher = async (id, updateJTeacher) => {
   return insertedId;
 };
 
-exports.deleteTeacher = async (req, res) => {
-  const teacherId = req.params.id;
-  try {
+exports.deleteTeacher = async (id) => {
     await mongo.connect();
     const deleteTeacher = await mongo
       .db(dbName)
       .collection("teacher")
-      .deleteOne({ _id: teacherId });
+      .deleteOne({ _id: new ObjectId(id) });
+      mongo.close();
     return deleteTeacher;
-  } catch (err) {
-    console.log(err);
-  } finally {
-    mongo.close();
-  }
 };
