@@ -1,6 +1,6 @@
 const mongo = require("../../db/mongo");
 const dbName = require("../../config/db").mongo.dbName;
-const {ObjectId} = require('mongodb')
+const { ObjectId } = require("mongodb");
 exports.allTeacher = async () => {
   try {
     await mongo.connect();
@@ -20,7 +20,10 @@ exports.allTeacher = async () => {
 
 exports.teacherById = async (id) => {
   await mongo.connect();
-  const teacher = await mongo.db(dbName).collection("teacher").findOne({_id: new ObjectId(id)});
+  const teacher = await mongo
+    .db(dbName)
+    .collection("teacher")
+    .findOne({ _id: new ObjectId(id) });
   mongo.close();
   return teacher;
 };
@@ -43,7 +46,7 @@ exports.createTeachers = async (postTeachers) => {
     .insertMany(postTeachers);
   mongo.close();
   return insertedId;
-}
+};
 
 exports.updateTeacher = async (id, updateJTeacher) => {
   await mongo.connect();
@@ -51,16 +54,16 @@ exports.updateTeacher = async (id, updateJTeacher) => {
     .db(dbName)
     .collection("teacher")
     .updateOne({ _id: new ObjectId(id) }, { $set: updateJTeacher });
-    mongo.close();
+  mongo.close();
   return insertedId;
 };
 
 exports.deleteTeacher = async (id) => {
-    await mongo.connect();
-    const deleteTeacher = await mongo
-      .db(dbName)
-      .collection("teacher")
-      .deleteOne({ _id: new ObjectId(id) });
-      mongo.close();
-    return deleteTeacher;
+  await mongo.connect();
+  const deleteTeacher = await mongo
+    .db(dbName)
+    .collection("teacher")
+    .deleteOne({ _id: new ObjectId(id) });
+  mongo.close();
+  return deleteTeacher;
 };
