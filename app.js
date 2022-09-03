@@ -1,12 +1,12 @@
 
 const router = require('./route');
-const {connect} = require('./src/db/mongo');
+const bodyParser = require('body-parser');
 
 module.exports = function(app){
 
     // All defined endpoints
+    app.use(bodyParser.json());
     router(app);
-    connect();
     // app.use('/sam', (req, res) => {
     //     res.status(200).json({message : 'Hello'});
     // })

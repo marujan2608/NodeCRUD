@@ -2,10 +2,11 @@
 // Handle req and res
 
 const service = require('./service');
-exports.getAllStudents = (req, res) => {
-    // res.status(200).json({message : 'All Students'});
+
+exports.getAllStudents = async (req, res) => {
     try{
-        res.status(200).json(service.findAllStudents());
+        const student = await service.findAllStudents();
+        res.status(200).json(student);
     }catch(error){
         res.status(404).json({message : 'Not Found 404'});
     }

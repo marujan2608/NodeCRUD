@@ -1,7 +1,7 @@
 const dbConfig = {
     mongo: {
         url: 'mongodb://localhost:27017',
-        dbName: 'fCRUD'
+        dbName: 'fcrud'
     }
 }
 

@@ -1,9 +1,10 @@
 
 const data = require('./data');
-exports.findAllStudents = (req, res) => {
-    // return [{message : 'All Students'}];
+exports.findAllStudents = async (req, res) => {
     try{
-        return data.allStudents();
+        const student = await data.allStudents();
+        console.log(student);
+        return student;
     }catch(error){
         throw new Error(error);
     }
