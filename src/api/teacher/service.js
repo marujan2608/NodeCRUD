@@ -9,6 +9,15 @@ exports.getAllTeachers = async (req, res) => {
     }
 }
 
+exports.getTeacherById = async (req, res) => {
+    try{
+        const teacher = await data.teacherById();
+        return teacher;
+    }catch(err){
+        throw new Error(err);
+    }
+}
+
 exports.createTeacher = async (req, res) => {
     // const sam = {
     //     std:{

@@ -3,7 +3,16 @@ const service = require('./service');
 
 exports.getAllTeachers = async (req, res) => {
     try{
-        const teacher = await service.getAllTeachers();
+        const teachers = await service.getAllTeachers();
+        res.status(200).json({isError: false, data: teachers});
+    }catch(err){
+        res.status(400).json({isError: true, message: err.message});
+    }
+}
+
+exports.getTeacherById = async (req, res) => {
+    try{
+        const teacher = await service.getTeacherById();
         res.status(200).json({isError: false, data: teacher});
     }catch(err){
         res.status(400).json({isError: true, message: err.message});
