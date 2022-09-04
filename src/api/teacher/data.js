@@ -2,20 +2,14 @@ const mongo = require("../../db/mongo");
 const dbName = require("../../config/db").mongo.dbName;
 const { ObjectId } = require("mongodb");
 exports.allTeacher = async () => {
-  try {
-    await mongo.connect();
-    const teachers = await mongo
-      .db(dbName)
-      .collection("teacher")
-      .find({})
-      .toArray();
-    return teachers;
-  } catch (err) {
-    console.log(err);
-    throw new Error(err);
-  } finally {
-    mongo.close();
-  }
+  await mongo.connect();
+  const teachers = await mongo
+    .db(dbName)
+    .collection("teacher")
+    .find({})
+    .toArray();
+  mongo.close();
+  return teachers;
 };
 
 exports.teacherById = async (id) => {
