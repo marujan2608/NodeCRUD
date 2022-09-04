@@ -1,12 +1,11 @@
 const data = require("./data");
 
-exports.getAllTeachers = async (req, res) => {
-  try {
-    const teachers = await data.allTeacher();
-    return teachers;
-  } catch (err) {
+exports.getAllTeachers = async (req) => {
+  const teachers = await data.allTeacher();
+  if (!teachers) {
     throw new Error(err);
   }
+  return teachers;
 };
 
 exports.getTeacherById = async (req) => {
@@ -18,7 +17,7 @@ exports.getTeacherById = async (req) => {
   return teacher;
 };
 
-exports.createTeacher = async (req, res) => {
+exports.createTeacher = async (req) => {
   // const sam = {
   //     std:{
   //         name:"d",
@@ -31,16 +30,15 @@ exports.createTeacher = async (req, res) => {
   // }
   // const {name,age, std:{courses}} = sam
   // return name;
-  if (req.body.name && req.body.age) {
-    const postTeacher = {
-      name: req.body.name,
-      age: req.body.age,
-      nickName: req?.body?.nickName,
-    };
-    return data.createTeacher(postTeacher);
-  } else {
+  const postTeacher = {
+    name: req.body.name,
+    age: req.body.age,
+    nickName: req?.body?.nickName,
+  };
+  if (!postTeacher) {
     throw new Error("Invalid Body");
   }
+  return await data.createTeacher(postTeacher);
 };
 
 exports.createTeachers = async (req) => {
@@ -57,27 +55,26 @@ exports.createTeachers = async (req) => {
       });
     }
   }
-  return data.createTeachers(postTeachers);
+  return await data.createTeachers(postTeachers);
 };
 
 exports.updateTeacher = async (req) => {
   const id = req.params.id;
   if (!id) {
-    throw new Error("Invalid Body");
+    throw new Error("Invalid id");
   }
   const updateJTeacher = {
     name: req.body.name,
     age: req.body.age,
     nickName: req?.body?.nickName,
   };
-  return data.updateTeacher(id, updateJTeacher);
+  return await data.updateTeacher(id, updateJTeacher);
 };
 
-exports.deleteTeacher = async (req, res) => {
+exports.deleteTeacher = async (req) => {
   const id = req.params.id;
   if (!id) {
-    throw new Error("Invalid Body");
+    throw new Error("Invalid id");
   }
-  const deleteTeacher = await data.deleteTeacher(id);
-  return deleteTeacher;
+  return await data.deleteTeacher(id);
 };

@@ -2,7 +2,7 @@ const service = require("./service");
 
 exports.getAllTeachers = async (req, res) => {
   try {
-    const teachers = await service.getAllTeachers();
+    const teachers = await service.getAllTeachers(req);
     res.status(200).json({ isError: false, data: teachers });
   } catch (err) {
     res.status(400).json({ isError: true, message: err.message });

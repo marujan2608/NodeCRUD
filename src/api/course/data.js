@@ -2,63 +2,63 @@ const mongo = require("../../db/mongo");
 const dbName = require("../../config/db").mongo.dbName;
 const { ObjectId } = require("mongodb");
 
-exports.allTeacher = async () => {
+exports.allCourses = async () => {
   await mongo.connect();
-  const teachers = await mongo
+  const courses = await mongo
     .db(dbName)
-    .collection("teacher")
+    .collection("course")
     .find({})
     .toArray();
   mongo.close();
-  return teachers;
+  return courses;
 };
 
-exports.teacherById = async (id) => {
+exports.courseById = async (id) => {
   await mongo.connect();
-  const teacher = await mongo
+  const course = await mongo
     .db(dbName)
-    .collection("teacher")
+    .collection("course")
     .findOne({ _id: new ObjectId(id) });
   mongo.close();
-  return teacher;
+  return course;
 };
 
-exports.createTeacher = async (teacherAdd) => {
+exports.createCourse = async (courseAdd) => {
   await mongo.connect();
   const { insertedId } = await mongo
     .db(dbName)
-    .collection("teacher")
-    .insertOne(teacherAdd);
+    .collection("course")
+    .insertOne(courseAdd);
   mongo.close();
   return insertedId;
 };
 
-exports.createTeachers = async (postTeachers) => {
+exports.createCourses = async (postCourses) => {
   await mongo.connect();
   const { insertedId } = await mongo
     .db(dbName)
-    .collection("teacher")
-    .insertMany(postTeachers);
+    .collection("course")
+    .insertMany(postCourses);
   mongo.close();
   return insertedId;
 };
 
-exports.updateTeacher = async (id, updateJTeacher) => {
+exports.updateCourse = async (id, updateJCourse) => {
   await mongo.connect();
   const { insertedId } = await mongo
     .db(dbName)
-    .collection("teacher")
-    .updateOne({ _id: new ObjectId(id) }, { $set: updateJTeacher });
+    .collection("course")
+    .updateOne({ _id: new ObjectId(id) }, { $set: updateJCourse });
   mongo.close();
   return insertedId;
 };
 
-exports.deleteTeacher = async (id) => {
+exports.deleteCourse = async (id) => {
   await mongo.connect();
-  const deleteTeacher = await mongo
+  const deleteCourse = await mongo
     .db(dbName)
-    .collection("teacher")
+    .collection("course")
     .deleteOne({ _id: new ObjectId(id) });
   mongo.close();
-  return deleteTeacher;
+  return deleteCourse;
 };
